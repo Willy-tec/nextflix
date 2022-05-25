@@ -1,0 +1,12 @@
+.RowContainer {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.RowContainer div {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+}
