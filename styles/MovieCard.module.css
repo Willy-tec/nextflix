@@ -1,8 +1,8 @@
 .MovieCard {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: unset;
   align-items: center;
-  min-width: 300px;
+  min-width: 342px;
   min-height: 300px;
 }

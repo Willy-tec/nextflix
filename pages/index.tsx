@@ -40,7 +40,7 @@ const Home: NextPage<indexProps> = ({data, discovery}) => {
           <RowContainer
             key={rowidx}
             title={row.genre.name}
-            render={(el: shortMovie, idx: number) => (
+            render={(el: movie, idx: number) => (
               <MovieCard movie={el} key={idx} />
             )}>
             {row.results}
