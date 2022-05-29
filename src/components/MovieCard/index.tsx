@@ -1,17 +1,30 @@
 import {MovieCardProps} from "../../types/pageProps";
 import styles from "../../../styles/MovieCard.module.css";
 import Image from "next/image";
+
 export default function MovieCard({movie}: MovieCardProps): JSX.Element {
   const overview = movie.overview
-    ? movie.overview.slice(0, 250) + "..."
+    ? movie.overview.length > 253
+      ? movie.overview.slice(0, 250) + "..."
+      : movie.overview
     : "no description";
+  const hasTrailer = "trailer_key" in movie && movie.trailer_key !== "error";
+  const YOUTUBE_URL = `https://www.youtube.com/watch?v=${movie.trailer_key}`;
   return (
     <div className={styles.MovieCard}>
       <h3>{movie.title}</h3>
       <p>{overview}</p>
       {movie.backdrop_path !== null ? (
-        <Image src={movie.backdrop_path} width={342} height={200} alt="" />
+        <Image src={movie.backdrop_path} width={342} height={192} alt="" />
       ) : null}
+      {hasTrailer ? (
+        <a href={YOUTUBE_URL} target="_blank" rel="noreferrer">
+          {" "}
+          Voir le trailer sur youtube
+        </a>
+      ) : (
+        hasTrailer
+      )}
     </div>
   );
 }

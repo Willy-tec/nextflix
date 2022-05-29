@@ -2,6 +2,7 @@ import {
   configuration,
   discover,
   genres,
+  movieTrailerResponse,
   sampleData,
   shortMovie,
   shortResponse,
@@ -16,8 +17,6 @@ const genre_url = `/genre/movie/list`;
 const discover_url = `/discover/movie`;
 const movie_url = `/movie/`;
 const config_url = "/configuration";
-
-// discover query => ?api_key=${process.env.TMDB}&&language=fr-FR&&with_genres=27&&release_date.gte=2021&&include_adult=true`;
 
 export async function fetchGenre(): Promise<genres[]> {
   const target = `${url}${genre_url}?${api_info}&&${lang_info}`;
@@ -37,41 +36,61 @@ export async function fetchDiscoverByGenre(genreId: number): Promise<discover> {
   return await fetch(target).then((data) => data.json());
 }
 
-export async function makeQueryString(): Promise<configuration> {
+export async function getConfigData(): Promise<configuration> {
+  // The configuration object return some info about image url and their size
   const target = `${url}${config_url}?${api_info}`;
   return await fetch(target).then((data) => data.json());
 }
 export async function fetchHomeSample() {
   const genres = await fetchGenre();
   let response: shortResponse1[] = [];
-  let config = await makeQueryString();
+  let config = await getConfigData();
   let poster_url =
     config.images.secure_base_url + config.images.poster_sizes[3];
 
   for (let i = 0; i < genres.length; i += 1) {
     const data = (await fetchDiscoverByGenre(genres[i].id)) as sampleData;
-    // const result = data.results.map<shortMovie>((res) => {
-    //   return {
-    //     id: res.id,
-    //     title: res.title,
-    //     video: res.video,
-    //     release_date: res.release_date,
-    //     overview: res.overview,
-    //   };
-    // });
-    let arr = data.results.slice(0, 6);
-    arr.forEach((element) => {
+
+    let arr = data.results.slice(0, 5);
+    arr.forEach(async (element) => {
       element.poster_path = poster_url + element.poster_path;
       element.backdrop_path = poster_url + element.backdrop_path;
+      element.trailer_key = await getTrailerUrl(element.id);
     });
     response.push({
       page: data.page,
-      results: arr, //result.slice(0, 6),
+      results: arr,
       genre: genres[i],
       total_results: data.total_results,
       total_pages: data.total_pages,
     });
   }
-
   return response;
+}
+
+async function getTrailerUrl(id: number): Promise<string> {
+  let TARGET = `${url}${movie_url}${id}/videos?${api_info}&&${lang_info}`;
+  let data: movieTrailerResponse = await fetch(TARGET).then((data) =>
+    data.json()
+  );
+  if (data.results.length === 0) {
+    TARGET = `${url}${movie_url}${id}/videos?${api_info}`;
+    data = await fetch(TARGET).then((data) => data.json());
+  }
+  if (data.results.length === 0) return "error";
+
+  let result = data.results.filter(
+    (el) => el.site === "YouTube" && el.type === "Trailer"
+  );
+  if (result.length > 0) return result[0].key;
+
+  result = data.results.filter((el) => el.site === "YouTube");
+  if (result.length > 0) return result[0].key;
+
+  TARGET = `${url}${movie_url}${id}/videos?${api_info}`;
+  data = await fetch(TARGET).then((data) => data.json());
+  result = data.results.filter((el) => el.site === "YouTube");
+  if (result.length > 0) return result[0].key;
+
+  return "error";
 }

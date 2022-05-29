@@ -40,6 +40,7 @@ export interface movie {
   tagline: string | null;
   title: string;
   video: boolean;
+  trailer_key: string;
   vote_average: number;
   vote_count: number;
 }
@@ -88,4 +89,21 @@ export interface shortResponse1 {
   total_results: number;
   total_pages: number;
   genre: genres;
+}
+
+export interface movieTrailerResponse {
+  id: number;
+  results: TrailerObject[];
+}
+export interface TrailerObject {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: true;
+  published_at: string;
+  id: string;
 }

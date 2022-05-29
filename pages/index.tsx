@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import MovieCard from "../src/components/MovieCard";
 import RowContainer from "../src/components/RowContainer";
+import YoutubeFrame from "../src/components/YoutubeFrame";
 import {
   fetchDiscover,
   fetchGenre,
@@ -35,7 +36,6 @@ const Home: NextPage<indexProps> = ({data, discovery}) => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome !</h1>
-
         {data.map((row, rowidx) => (
           <RowContainer
             key={rowidx}
@@ -53,7 +53,7 @@ const Home: NextPage<indexProps> = ({data, discovery}) => {
           href="https://www.themoviedb.org/"
           target="_blank"
           rel="noopener noreferrer">
-          Powered by The Movie Database
+          Data powered by The Movie Database
         </a>
       </footer>
     </div>

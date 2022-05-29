@@ -10,3 +10,9 @@ function render(child: JSX.Element): JSX.Element;
 export interface MovieCardProps {
   movie: movie;
 }
+
+export interface YoutubeFrameProps {
+  trailer_key: string;
+  width: number;
+  height: number;
+}
