@@ -1,12 +1,25 @@
-.RowContainer {
+/* .RowContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: stretch;
 }
-
+.RowContainer > h2 {
+  align-self: baseline;
+}
 .RowContainer div {
   display: flex;
-  overflow-x: hidden;
+  overflow-x: auto;
+
   width: 100%;
+  gap: 8px;
+} */
+.RowContainer div {
+  display: grid;
+  place-items: center;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }

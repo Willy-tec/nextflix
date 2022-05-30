@@ -14,6 +14,8 @@ import styles from "../styles/Home.module.css";
 
 export async function getStaticProps() {
   const data = await fetchHomeSample();
+  // console.log(data);
+  // console.log(data[0]);
   return {
     props: {data},
   };

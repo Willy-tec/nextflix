@@ -51,6 +51,9 @@ export interface discover {
   total_results: number;
   total_pages: number;
 }
+export interface sampleData extends discover {
+  genre: genres;
+}
 export interface configuration {
   images: {
     base_url: string;
@@ -62,11 +65,6 @@ export interface configuration {
     still_sizes: string[];
   };
   change_keys: string[];
-}
-
-export interface sampleData extends discover {
-  genre: genres;
-  result: [];
 }
 
 export interface shortMovie {

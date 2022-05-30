@@ -11,7 +11,7 @@ export default function MovieCard({movie}: MovieCardProps): JSX.Element {
   const hasTrailer = "trailer_key" in movie && movie.trailer_key !== "error";
   const YOUTUBE_URL = `https://www.youtube.com/watch?v=${movie.trailer_key}`;
   return (
-    <div className={styles.MovieCard}>
+    <article className={styles.MovieCard}>
       <h3>{movie.title}</h3>
       <p>{overview}</p>
       {movie.backdrop_path !== null ? (
@@ -25,6 +25,6 @@ export default function MovieCard({movie}: MovieCardProps): JSX.Element {
       ) : (
         hasTrailer
       )}
-    </div>
+    </article>
   );
 }
