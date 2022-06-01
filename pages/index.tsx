@@ -14,8 +14,6 @@ import styles from "../styles/Home.module.css";
 
 export async function getStaticProps() {
   const data = await fetchHomeSample();
-  // console.log(data);
-  // console.log(data[0]);
   return {
     props: {data},
   };
@@ -24,6 +22,7 @@ interface indexProps {
   data: sampleData[];
   discovery: object;
 }
+const MOVIE_PER_PAGE = 5;
 const Home: NextPage<indexProps> = ({data, discovery}) => {
   return (
     <div className={styles.container}>
