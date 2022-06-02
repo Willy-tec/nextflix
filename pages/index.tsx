@@ -1,6 +1,6 @@
 import type {NextPage, NextPageContext} from "next";
 import Head from "next/head";
-import {useEffect, useState} from "react";
+import {SyntheticEvent, useEffect, useState} from "react";
 import MovieCard from "../src/components/MovieCard";
 import RowContainer from "../src/components/RowContainer";
 
@@ -24,7 +24,7 @@ const Home: NextPage<indexProps> = ({data}) => {
     setWidth(window.innerWidth);
   };
   useEffect(() => {
-    console.log("camesoul");
+    window.onload = setSizeByEvent() as any;
     window.addEventListener("resize", setSizeByEvent);
     return () => window.removeEventListener("resize", setSizeByEvent);
   }, []);
