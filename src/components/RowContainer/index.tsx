@@ -13,7 +13,7 @@ export default function RowContainer({
   const [index, setIndex] = useState(0);
   const MOVIE_PER_ROW =
     width === 0 ? 5 : Math.floor((width - 50) / VIDEO_WIDTH) || 1;
-  if (index > children.length - MOVIE_PER_ROW && index > MOVIE_PER_ROW)
+  if (index > children.length - MOVIE_PER_ROW && index >= MOVIE_PER_ROW)
     setIndex(children.length - MOVIE_PER_ROW);
   return (
     <section className={styles.RowContainer}>
