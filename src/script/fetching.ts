@@ -18,7 +18,6 @@ const genre_url = `/genre/movie/list`;
 const discover_url = `/discover/movie`;
 const movie_url = `/movie/`;
 const config_url = "/configuration";
-const MOVIE_COUNT_BY_GENRE = 5;
 
 export async function fetchGenre(): Promise<genres[]> {
   const target = `${url}${genre_url}?${api_info}&&${lang_info}`;

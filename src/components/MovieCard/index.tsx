@@ -1,5 +1,5 @@
 import {MovieCardProps} from "../../types/pageProps";
-import styles from "../../../styles/MovieCard.module.css";
+import styles from "../../styles/MovieCard.module.css";
 import Image from "next/image";
 
 export default function MovieCard({movie}: MovieCardProps): JSX.Element {

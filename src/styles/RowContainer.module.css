@@ -1,0 +1,61 @@
+.RowContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: auto;
+}
+.RowContainer h2 {
+  align-self: baseline;
+  margin: 18px 0 0 0;
+}
+.RowContainer div {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  gap: 8px;
+  position: relative;
+}
+.RowContainer p {
+  margin: 6px 0;
+  align-self: baseline;
+}
+.arrow_left {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 50px;
+  border: none;
+  padding: 4px 8px 8px 8px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  z-index: 1;
+  transform: translatey(-50%);
+  cursor: pointer;
+}
+
+.arrow_right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 50px;
+  border: none;
+  padding: 4px 8px 8px 8px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  z-index: 1;
+  transform: translatey(-50%);
+  cursor: pointer;
+}
+
+.arrow_left:hover,
+.arrow_right:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}

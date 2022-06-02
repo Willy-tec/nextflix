@@ -1,16 +1,12 @@
 import type {NextPage, NextPageContext} from "next";
 import Head from "next/head";
-import Image from "next/image";
+import {useEffect, useState} from "react";
 import MovieCard from "../src/components/MovieCard";
 import RowContainer from "../src/components/RowContainer";
-import YoutubeFrame from "../src/components/YoutubeFrame";
-import {
-  fetchDiscover,
-  fetchGenre,
-  fetchHomeSample,
-} from "../src/script/fetching";
-import {genres, movie, sampleData, shortMovie} from "../src/types/TMDB";
-import styles from "../styles/Home.module.css";
+
+import {fetchHomeSample} from "../src/script/fetching";
+import {movie, sampleData} from "../src/types/TMDB";
+import styles from "../src/styles/Home.module.css";
 
 export async function getStaticProps() {
   const data = await fetchHomeSample();
@@ -22,8 +18,17 @@ interface indexProps {
   data: sampleData[];
   discovery: object;
 }
-const MOVIE_PER_PAGE = 5;
-const Home: NextPage<indexProps> = ({data, discovery}) => {
+const Home: NextPage<indexProps> = ({data}) => {
+  const [width, setWidth] = useState(0);
+  const setSizeByEvent = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    console.log("camesoul");
+    window.addEventListener("resize", setSizeByEvent);
+    return () => window.removeEventListener("resize", setSizeByEvent);
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -41,6 +46,7 @@ const Home: NextPage<indexProps> = ({data, discovery}) => {
           <RowContainer
             key={rowidx}
             title={row.genre.name}
+            width={width}
             render={(el: movie, idx: number) => (
               <MovieCard movie={el} key={idx} />
             )}>

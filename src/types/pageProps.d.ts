@@ -4,6 +4,7 @@ export interface RowContainerProps {
   title: string;
   children: shortMovie[];
   render: render;
+  width: number;
 }
 function render(child: JSX.Element): JSX.Element;
 
