@@ -10,6 +10,7 @@ function render(child: JSX.Element): JSX.Element;
 
 export interface MovieCardProps {
   movie: movie;
+  openModal: (arg: movie) => void;
 }
 
 export interface YoutubeFrameProps {

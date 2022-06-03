@@ -1,4 +1,4 @@
-.RowContainer {
+.Row {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,18 +6,17 @@
   margin: auto;
   width: auto;
 }
-.RowContainer h2 {
+.Row_title {
   align-self: baseline;
   margin: 18px 0 0 0;
 }
-.RowContainer div {
+.Row_container {
   display: flex;
-  overflow-x: auto;
   width: 100%;
   gap: 8px;
   position: relative;
 }
-.RowContainer p {
+.Row_pagination {
   margin: 6px 0;
   align-self: baseline;
 }

@@ -21,7 +21,7 @@ export interface movie {
   backdrop_path: string | null;
   belongs_to_collection: {} | null;
   budget: number;
-  genres: genres[];
+  genre_ids: number[];
   homepage: string | null;
   id: number;
   imdb_id: string | null;

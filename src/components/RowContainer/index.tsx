@@ -19,14 +19,14 @@ export default function RowContainer({
     setIndex(children.length - MOVIE_PER_ROW);
 
   return (
-    <section className={styles.RowContainer}>
-      <h2>{title}</h2>
-      <p>
+    <section className={styles.Row}>
+      <h2 className={styles.Row_title}>{title}</h2>
+      <p className={styles.Row_pagination}>
         {index + 1} à{" "}
         {!INDEX_IN_LAST_PAGE ? index + MOVIE_PER_ROW : children.length} sur{" "}
         {children.length} films
       </p>
-      <div>
+      <div className={styles.Row_container}>
         {index > 0 ? (
           <button
             className={styles.arrow_left}

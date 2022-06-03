@@ -55,8 +55,7 @@ export async function fetchHomeSample() {
     const data = (await fetchDiscoverByGenre(genres[i].id)) as sampleData;
 
     let arr = getArrWithOnlyNewMovie(data.results, MovieTempArr);
-    // On ne découpe plus
-    // arr = arr.slice(0, MOVIE_COUNT_BY_GENRE);
+
     MovieTempArr.push(...arr.map((el) => el.id));
     let MovieArrayWithUrl: movie[];
     MovieArrayWithUrl = await Promise.all(

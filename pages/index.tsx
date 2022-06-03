@@ -4,31 +4,51 @@ import {SyntheticEvent, useEffect, useState} from "react";
 import MovieCard from "../src/components/MovieCard";
 import RowContainer from "../src/components/RowContainer";
 
-import {fetchHomeSample} from "../src/script/fetching";
-import {movie, sampleData} from "../src/types/TMDB";
+import {fetchGenre, fetchHomeSample} from "../src/script/fetching";
+import {genres, movie, sampleData} from "../src/types/TMDB";
 import styles from "../src/styles/Home.module.css";
+import ModalMovie from "../src/components/ModalMovie";
 
 export async function getStaticProps() {
   const data = await fetchHomeSample();
+  const genres = await fetchGenre();
   return {
-    props: {data},
+    props: {data, genres},
   };
 }
 interface indexProps {
   data: sampleData[];
-  discovery: object;
+  genres: genres[];
 }
-const Home: NextPage<indexProps> = ({data}) => {
+const Home: NextPage<indexProps> = ({data, genres}) => {
   const [width, setWidth] = useState(0);
+  const [isModalOpen, toggleModalView] = useState(false);
+  const [modalMovie, setModalMovie] = useState<movie>({} as movie);
+
   const setSizeByEvent = () => {
     setWidth(window.innerWidth);
   };
   useEffect(() => {
     window.onload = setSizeByEvent() as any;
     window.addEventListener("resize", setSizeByEvent);
+
     return () => window.removeEventListener("resize", setSizeByEvent);
   }, []);
+  useEffect(() => {
+    console.log(isModalOpen);
+    if (isModalOpen) window.addEventListener("click", closeModal);
+    if (!isModalOpen) window.removeEventListener("click", closeModal);
 
+    return () => window.removeEventListener("click", closeModal);
+  }, [isModalOpen]);
+  const openModal = (movie: movie) => {
+    setModalMovie(movie);
+    toggleModalView(true);
+  };
+  const closeModal = () => {
+    console.log("close modale");
+    toggleModalView(false);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -41,6 +61,14 @@ const Home: NextPage<indexProps> = ({data}) => {
       </Head>
 
       <main className={styles.main}>
+        {isModalOpen && (
+          <ModalMovie
+            movie={modalMovie}
+            closeModal={closeModal}
+            genres={genres}
+          />
+        )}
+
         <h1 className={styles.title}>Welcome !</h1>
         {data.map((row, rowidx) => (
           <RowContainer
@@ -48,7 +76,7 @@ const Home: NextPage<indexProps> = ({data}) => {
             title={row.genre.name}
             width={width}
             render={(el: movie, idx: number) => (
-              <MovieCard movie={el} key={idx} />
+              <MovieCard movie={el} key={idx} openModal={openModal} />
             )}>
             {row.results}
           </RowContainer>
