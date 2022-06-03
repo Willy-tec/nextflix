@@ -1,6 +1,6 @@
 import type {NextPage, NextPageContext} from "next";
 import Head from "next/head";
-import {SyntheticEvent, useEffect, useState} from "react";
+import {createRef, SyntheticEvent, useEffect, useRef, useState} from "react";
 import MovieCard from "../src/components/MovieCard";
 import RowContainer from "../src/components/RowContainer";
 
@@ -24,7 +24,6 @@ const Home: NextPage<indexProps> = ({data, genres}) => {
   const [width, setWidth] = useState(0);
   const [isModalOpen, toggleModalView] = useState(false);
   const [modalMovie, setModalMovie] = useState<movie>({} as movie);
-
   const setSizeByEvent = () => {
     setWidth(window.innerWidth);
   };
@@ -34,20 +33,16 @@ const Home: NextPage<indexProps> = ({data, genres}) => {
 
     return () => window.removeEventListener("resize", setSizeByEvent);
   }, []);
-  useEffect(() => {
-    console.log(isModalOpen);
-    if (isModalOpen) window.addEventListener("click", closeModal);
-    if (!isModalOpen) window.removeEventListener("click", closeModal);
 
-    return () => window.removeEventListener("click", closeModal);
-  }, [isModalOpen]);
   const openModal = (movie: movie) => {
     setModalMovie(movie);
     toggleModalView(true);
   };
   const closeModal = () => {
-    console.log("close modale");
     toggleModalView(false);
+  };
+  const verifyModal = (e: SyntheticEvent) => {
+    if (isModalOpen) closeModal();
   };
   return (
     <div className={styles.container}>
@@ -60,7 +55,7 @@ const Home: NextPage<indexProps> = ({data, genres}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className={styles.main} onClick={verifyModal}>
         {isModalOpen && (
           <ModalMovie
             movie={modalMovie}

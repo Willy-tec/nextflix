@@ -13,11 +13,10 @@ export default function ModalMovie({
   closeModal,
   genres,
 }: ModalMovieProps): JSX.Element {
-  console.log(movie);
   return (
     <>
       <article className={styles.modal}>
-        <button onClick={closeModal}>X</button>
+        {/* <button onClick={closeModal}>X</button> */}
         <h2>{movie.title}</h2>
         {movie.tagline && movie.tagline.length > 0 && <h3>{movie.tagline}</h3>}
         {movie.backdrop_path !== null && (
