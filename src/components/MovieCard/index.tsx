@@ -12,7 +12,6 @@ export default function MovieCard({
       ? movie.overview.slice(0, 250) + "..."
       : movie.overview
     : "no description";
-  const [isModalOpen, toggleModalView] = useState(false);
   const hasTrailer = "trailer_key" in movie && movie.trailer_key !== "error";
   const YOUTUBE_URL = `https://www.youtube.com/watch?v=${movie.trailer_key}`;
   return (
