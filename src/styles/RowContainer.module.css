@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 100%;
+  width: auto;
 }
 .Row_title {
   align-self: baseline;

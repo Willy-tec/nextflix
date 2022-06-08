@@ -20,6 +20,7 @@ interface indexProps {
   data: sampleData[];
   genres: genres[];
 }
+
 const Home: NextPage<indexProps> = ({data, genres}) => {
   const [width, setWidth] = useState(0);
   const [isModalOpen, toggleModalView] = useState(false);
@@ -27,10 +28,10 @@ const Home: NextPage<indexProps> = ({data, genres}) => {
   const setSizeByEvent = () => {
     setWidth(window.innerWidth);
   };
-  useEffect(() => {
-    window.onload = setSizeByEvent() as any;
-    window.addEventListener("resize", setSizeByEvent);
 
+  useEffect(() => {
+    setSizeByEvent();
+    window.addEventListener("resize", setSizeByEvent);
     return () => window.removeEventListener("resize", setSizeByEvent);
   }, []);
 
@@ -44,6 +45,7 @@ const Home: NextPage<indexProps> = ({data, genres}) => {
   const verifyModal = (e: SyntheticEvent) => {
     if (isModalOpen) closeModal();
   };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -52,6 +54,13 @@ const Home: NextPage<indexProps> = ({data, genres}) => {
           name="description"
           content="Where you can find what you want to watch"
         />
+        <meta property="og:title" content="Title of the article" />
+        <meta property="og:image" content="//media.example.com/ 1234567.jpg" />
+        <meta
+          property="og:description"
+          content="Description that will show in the preview"
+        />
+        <meta property="og:url" content="https://nextflix-navy.vercel.app/" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
