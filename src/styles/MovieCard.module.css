@@ -7,7 +7,7 @@
   min-width: 248px;
   height: 100%;
   flex-basis: 342px;
-  flex-shrink: 1;
+  flex-shrink: 0;
   flex-grow: 0;
   position: relative;
   border-radius: 6px;
